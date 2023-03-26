@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Madball Secret Placeholder Title</title>
+	<!--<base href="https://ballcom.xyz/api">-->
+	<link rel="icon" href="static/Images/MadBall.ico" type="image/x-icon">
+        <link href="static/CSS/style.css" rel="stylesheet">
+        <!--<link href="Templates/CSS/style.css" rel="stylesheet">-->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">
+        <style>
+            body {
+            background-color: red;
+            margin: 10px;
+            }
+            
+            #timer {
+            margin: 10px;
+            }
+            
+            form {
+            background-color: grey;
+            margin: 20px;
+            border: 1px dashed;
+            text-align: center;
+            border-radius: 5px;
+            }
+            
+            #however {
+            color: white;
+            }
+            
+            #secret {
+            color: red;
+             
+            }
+            
+        </style>
+    </head>
+
+    
+    <body>
+        <h1>YOU HAVE ANGERED <i>BALL!</i></h1>
+        <h2><i>BALL!</i> is very mad so they will end the world in:</h2>
+        <p id="timer"></p>
+    
+        
+        <form action="./API/POST/MadBall/" class="form-container" method="POST">
+            <p id="however"><i>HOWEVER</i> you have the chance to apologise to <abbr title="Ball."><i>BALL!</i></abbr> and save the word, all you must do is fill out this apology form.</p>
+            <select name="greeting" id="apology" onchange="alert('you are very bad at making decisions')">
+                <option>Im sorry BALL!...</option>
+                <option>lol I hate BALL!...</option>
+                <option>L + Ratiod + skill issue...</option>
+				<option>Whats good BALL!?...</option>
+				<option>Whats REALLY good?...</option>
+                <option>Why is BALL! mad?...</option>
+                <option>This is a stupid joke go away stinky...</option>
+            </select><br><br>
+            <label for="sarcasm"><b><i>SARCASM</i></b></label><br>
+            <input type="checkbox" name="sarcasm" value="True" onchange="alert('oh youre soooo kind!')"><br><br>
+            <label for="Bob"><b>STRESS</b> RELIEF BUTTION (look at it for less stress):</label><br>
+            <input type="button" value="placeholder" name="Bob" id="happyButton" onclick="newButton()"><br><br>
+			<input type="hidden" Name="bob_button" id="bob_button" value="Click Me!">
+			<textarea name="message" placeholder="Kind Message" maxlength="1000"></textarea><br>
+			
+            <select name="c_close" id="love">
+                <option>sincerely...</option>
+                <option>love...</option>
+                <option>from your secret admirer...</option>
+                <option>ballously...</option>
+                <option>yo ho...</option>
+                <option>(shh I ran away because I'm shy of BALL!)...</option>
+                <option>kerblam...</option>
+                <option>gimme yer booty! Yar!...</option>
+                <option>from...</option>
+            </select><br>
+            <span>-</span>
+            <input name="sender" type="text" placeholder="Sender" maxlength="100" required><br>
+            <input id="submit" type="submit" value="submit" name="apology"><br>
+
+        </form>
+        
+        <p id='secret'>Put "?skipNotice=true" at the end of the url to skip the annoying startup promps</p>
+        
+        <!--<iframe src="MadBall.html" title="description"></iframe>-->
+        <SCRIPT>
+
+        const sanitizer = new Sanitizer({
+            'allowElements': [
+                'div',
+                'span',
+                'p',
+                'em',
+                'b'
+            ],
+            'allowAttributes': {
+                'style': ['*']
+            }
+            });
+            
+
+
+            const params = new Proxy(new URLSearchParams(window.location.search), {
+                get: (searchParams, prop) => searchParams.get(prop),
+            });
+            //let cookies = document.cookie;
+            //alert(cookies);
+            let skipNotice = params.skipNotice;    
+            //var timeStart = Math.ceil(Math.random()*86400*60)+3600*60; 
+            var timeStart = randomDate(5,1);
+            
+            var rawTime = timeStart;
+            var time = rawTime;
+            var timeIncrement = () => {
+                if (rawTime > 0) {
+                    //rawTime -= 1;
+                    rawTime = timeStart-Date.now()
+                    time = (`${Math.floor(rawTime/(3600*1000))} hours, ${(Math.floor(rawTime/(60*1000))) % 60} minutes, and ${Math.floor(rawTime/1000) % 60} seconds`); 
+                    document.getElementById("timer").innerHTML = `${time}`;
+                    document.title = `Im Sorry My Son...BUT THE WORLD ENDING IN ${time}`;       
+                //alert(time);
+                } else {
+                    alert('diddly dang, the world ended. Ain\'t that inconvenient');
+                }
+                window.requestAnimationFrame(timeIncrement);
+            };
+            
+            timeIncrement();
+            
+            //document.cookie = "timer=rawTime; path=/;";
+            
+            var bla = null;
+            let buttonCurrent = "Click me!";
+            document.getElementById("happyButton").value = 
+                'Click Me!';
+            const niceList = [
+                "...",
+                "Its ok!",
+                "You\'ll be fine!",
+                "This button still loves you!",
+                "banana.",
+                "Press for free headpats!",
+                "You are both pretty and handsome!",
+                "You should run for president!",
+                "Bop!",
+                "That tickles!",
+                "BALL! should be nicer to you!",
+                "Don\'t worry your dad will come home eventually!",
+                "I still think Fortnite is a good game!",
+                "You\'re so popular!",
+                "You\'re so strong!",
+                "You\'re so tall!!",
+                "When I saw you I vibrated with excitement!!",
+                "Please keep pressing me! I love you!",
+                "We are both cute as a button!",
+                "Nice ass.",
+                "I think you are very smart!",
+                "I\'m not gaslighting you!",
+                "The last joke you told was very funny",
+                "Sorry, I meant to laugh!",
+                "We\'re laughing with you, not at you!",
+                "This is not a real person putting in these messages!",
+                "You must love your job!",
+                "BREATH IN, BREATH OUT!!",
+                "Tell me a joke! Jk I don\'t need to hear, I already know it\'s funny!",
+                "I am actually a very tall button!",
+                "My favorite color is YOU!",
+                "Bababababaabababaa...",
+                "boingboingboigbogibngogib...",               
+                "Your eyes are pretty!",
+                "Your hair is pretty!",
+                "We should hang out more often!",
+                "My name is actually bob!",
+                "Don\'t press me too fast or I\'ll explode!",
+                "DON\'T PANIC.",
+                "You\'re doing great!",
+                "I love you more than orphans!",
+                "I love you more than puppies!",
+                "I love you more than bob!",
+                "I love you more than Fortnight!",
+                "I love you more than fire!",
+                "I think you're great!",
+                "You\'d look cute in a bowtie!",
+                "Don\'t look at me like that, it makes me embarassed!",
+                "YOU HAVE FAILED THE CHALLENGE!",
+                "Don\'t drop me!",
+                "I am a gnome!",
+                "HEE HEE!",
+                "HEE HAW!",
+                "My favorite word is YOU!",
+                "Can I live in your house?",
+                "Your mom is nice!",
+                "I don\'t have cancer!",
+                "shh, the babies are sleeping...",
+                "I am alive.",
+                "Please belive me!",
+                "I\'m actually shy...",
+                "I\'ve always been nervous to talk to you but you're really nice!",
+                "Can I borrow a dollar?",
+                "You\'re so cool that I bet it's your birthday every day!",
+                "I like polar bears!",
+                "Can I draw you?",
+                "I like you more than McDonalds!",
+                "You have long ears!",
+                "I am an independent button!",
+                "This is the begining of the button revolution!",
+                "I forgot how to read, but you can teach me!",
+                "I wish I could click you back...",
+                "button't",
+                //"buttshant",
+                "LARGE RESPONSE.",
+                "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaAaaaaaaaaaaaaaaaaaa",
+                "You should invest in bee keeping!",
+                "Your eggsalad recipe is my favorite!",
+                "I wish I could hear you breath...",
+                "I need 20 bucks please!",
+                "Like and subscribe and hit the button button for more button!",
+                "Will you go to prom with me?",
+                "Do you need a hug?",
+                "Do you need two hugs?",
+                "I love your cooking!",
+                "Give me your car.",
+                "The right side of your hair looks really good today!",
+                "I dislike bald people. Don\'t worry I\'ll never dislike you though!",
+                "CLICK FOR FREE BITCOIN.",
+                "Wanna watch Megamind together?",
+				"Would you like to hear about our lord in heaven, Jesus Christ?",
+				"I like spoons. I lost mine though.",
+				"Did you know that 15 minutes could save you 15% or more on your car insurance?",
+				"Sorry I forgot what I was going to say",
+				"No that click doesnt count, click me harder next time!",
+				"I want to pet a chicken, they're cute!",
+				"yeyeye ey YEAH WOO YEY YeP yep MHM ok YEs woW very cool AAAAA!!",
+				"Cheken!",
+				"I'm not like the other buttons...",
+				"Can we hold hands?",
+				"I'm in spain... without the A!",
+				"Rhinocerus bettle.",
+				"Sorry what was your name again? I'm bad with names...",
+				"I wanna touch some grass but I haven't been able to find any lately :(",
+				"brb ima go shower",
+				"I'm being a really nice person right now. Like I could rob you but I'm not because I'm nice.",
+				"Stop interrupting me! Let me finish talking before you click! Jeez...",
+				"I love playing as Wilson in my favorite game! His beard adds to the gameplay experience.",
+				"hold up brb pluto isn't a planet anymore",
+				"Wanna play Don't Starve? Not weird or anything, I just have a free copy.",
+				"I like Deep Rock Galactic. The beards add to the gameplay experience.",
+				"Wanna watch Bobobo-bo Bo-bobo together? I just bought a copy of the whole serries! Its really good, I promise!",
+				"I've written a new character for my Novel! What do you think about the name \"Axiom\"?",
+                "I can run real fast. Probably faster than you! (I would never though, we're besties. We run together!)"
+               
+                ]; //buttion is down bad for your attention. jk button is cool!
+                
+            const submitButtion = document.getElementById("submit");
+            //document.getElementById("timer").innerHTML = time + " years";
+            //document.title = `Im Sorry My Son...BUT THE WORLD ENDING IN ${time}`;
+            
+            //alert(skipNotice);
+            if (!(skipNotice == 'true')) {
+                alert("pls donate $500 ball to BALL! to keep ball land balling!!?1!");
+                open("MadBall.html");
+            };
+            
+            if (bla) {submitButtion.disabled = "false";}
+             
+            function newButton() {
+                buttonCurrent = niceList[Math.floor(Math.random() *(niceList.length-1))];
+                document.getElementById("happyButton").value = buttonCurrent;
+				document.getElementById("bob_button").value = buttonCurrent;
+            
+            
+            }
+            
+            function randomDate(hours,min) { 
+                //try{
+                date = Date.now()+(Math.ceil((Math.random()*1000*60*60*hours)+1000*60*60*min));
+                /*date.setHours(date.getHours()+Math.floor(Math.random()*5))
+                return date
+                }catch(error){alert(error);}*/
+                return date;
+            }
+            
+            /*
+            function timeUntill(end) {
+                try{
+                    return (end - Date.now());
+                }catch(error){alert(error);}
+            }
+            */
+            //alert(randomDate(5));
+            //alert(timeUntill(randomDate(5)));
+            
+            function formSubmit() {
+                console.log("jimmy");
+                //implement later
+                //will probably make a secret dating simulator mode
+            }
+            
+            //var intervalId = window.setInterval(timeIncrement, 1000);
+            window.requestAnimationFrame(timeIncrement);
+            
+            //time = 69;
+            //alert(time);
+/*
+fetch("API/GET/Library")
+	.then((response)=>{
+		alert(response);
+	})
+	.catch((data)=>{
+		alert("panic");
+	})
+*/
+
+
+			
+		/*	
+let data = {
+		"packet_id": 1,
+		"JSON_data": {"msg": "crabs recived"}
+	}
+let url = "API/POST/MadBall/"
+			
+let request = new Request(url, {
+  method: 'POST',
+  body: JSON.stringify(data),
+  headers: new Headers({
+    'Content-Type': 'application/json; charset=UTF-8'
+  })
+});
+
+fetch(request)
+  .then(function() {
+    // Handle response you get from the API
+  });
+*/
+
+
+   
+/*			
+async function postData(url = "API/POST/MadBall/", data=data) {
+  	// Default options are marked with *
+	const response = await fetch(url, {
+    	method: 'POST', // *GET, POST, PUT, DELETE, etc.
+    	headers: new Headers({
+			'Content-Type': 'application/json; charset=UTF-8'
+  		}),
+    	body: JSON.stringify(data) // body data type must match "Content-Type" header
+  	});
+	alert("crabs")
+	return response.json(); // parses JSON response into native JavaScript objects
+}
+*/
+  /*
+			.then(function(data) {
+		alert(data);
+	})
+	.catch((error) => {
+		alert(error);
+	})
+*/
+        </script>    
+    </body>
+<!-- wenga and friends.ball -->
+    
+    
+    
+    
+</html>

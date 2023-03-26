@@ -1,0 +1,84 @@
+## Things I have put off as of 1/11/2023 | 1:32 AM
+
+# Add scopes to site (Basic, Spicy (paid cosmetic role or friend role, with other perks maybe?), Admin, Supa Admin, God (fake privaleges lol))
+
+# Study JWT token workings
+
+# Cookies for tokens
+
+# make-account page
+
+# login redirect saves what you were doing and restores (I hate sites that kidnap you and then throw you back out into the wilderness)
+
+# Token db to disable select tokens (in case of, for say, suspected token theft)
+
+# Update database to hold more user data
+    # soft disable and hard disable (soft disable cannot be use and profile is locked, hard disable account psedo deletes account)
+
+# Figure out how to add collumbs to the database
+
+# Add links in the database
+
+# Create that damn dinky art site
+
+# chat site (maybe using websockets?):
+    # hold up, what if emotes
+
+# make library functional (cry while saying sql a lot):
+    # search db
+    # like button
+    # comment on site
+    # favorite site 
+    # search bar and other settings
+    # make sites for nav bar
+    # mobile looks like hot ass
+
+# make forgor-password page ( >:c( ) <-- egg? ball?
+
+# Admin tools (low priority lol)
+
+# Update change log (they dont need to know)
+
+# Git version control (lol I even have it installed and prepped)
+
+# clean main.py:
+    #backup old version
+    # remove ded code
+    # use more functions/dependancies (grr I hate them sometimes)
+    # ensure that no routes end with "/" (prevent redirects)
+    # lowercase the routes
+    # make api more "RESTful" (ex: api/API/POST/* = bad)
+    # add the funny
+
+# Content filterization (prob python package with my own customizations):
+    # remove numerical and implied (ex: "n-word", n-word with numbers, n-word with "*")
+    # decide chat family friend list (I probably wont block shit, fuck, or dick prob. 100% block fortnite)
+
+# go to bed
+
+# secret sites (maybe its not a good idea?)
+
+# poopfart
+
+# kick nginx in the balls (It didnt do anything to me and always does what I tell it, but it always makes me think theres something wrong)
+
+# The lang reading due tomorrow
+
+# kick vim in the balls
+
+# update rules
+
+# get distracted by a dumb site
+
+# brag about code
+
+# get hired by microsoft (I'll settle for google though)
+
+## ok gn - 1/11/2023 | 1:55 AM
+
+# add contact page
+
+# add suggestions page 
+
+## ok fr now - 1/11/2023 | 1:58 AM
+

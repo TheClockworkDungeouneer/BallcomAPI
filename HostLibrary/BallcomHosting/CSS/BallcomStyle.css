@@ -1,0 +1,128 @@
+body {
+    background-color: LightGray;
+    /*background-color: LightSteelBlue;*/
+    margin:0;
+    padding:0;
+}
+
+img.Logo {
+    width: auto;
+    height:100%;
+    display: block;
+    float:left;
+    margin:0;
+}
+
+header {
+position: fixed;
+}
+/*
+#NavBar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height:10vh;
+}
+
+#NavBar > li {
+    float: left;
+}
+#NavBar > li > a {
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    /*background-color: CadetBlue;
+}
+#NavBar > li > a:hover {
+    background-color: Crimson;
+}
+
+nav {
+    background-color: CadetBlue;
+    height:10vh;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    font-size:30px;
+}
+*/
+
+nav {
+    background-color: CadetBlue;
+    list-style-type: none;
+    font-size:30px;
+    
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height:10vh;
+}
+
+nav ul {
+    padding:0;
+    margin:0;
+    float:left;
+    height:100%;
+}
+
+nav li {
+    float: left;
+    list-style-type: none;
+    margin:0;
+}
+
+nav li a {
+    display: inline-block;
+    text-align: center;
+    margin:0;
+    padding: 14px 16px;
+    text-decoration: none;
+    height:100%;
+    /*background-color: CadetBlue;*/
+}
+
+nav li a:hover {
+    background-color: Crimson;
+}
+
+
+form {
+    margin:0;
+    padding:10px;
+    /*height:4vh;*/
+}
+
+#SearchSettings {
+    background-color: LightGray;
+    height:100px;
+    width:100px;
+    z-index: 100;
+}
+
+#LibraryScroll{
+    display: inline-block;
+    flex-flow: column;
+    overflow: auto;
+    /*display:inline-block;
+    height: 60vh;*/
+    /*height:%;*/
+    width: 100%;
+    border-top-style: solid;
+    border-color: Gray;
+    border-width:1px;
+    margin:0;
+}
+
+#LibraryScroll > li {
+    border-radius:16px;
+    background-color: LightSteelBLue;
+    display:inline-block;
+    height: 100px;
+    border-style:solid;
+    border: red;
+}
+#DemoSite > li {
+height: 20vh;
+}

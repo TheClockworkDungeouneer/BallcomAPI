@@ -1,0 +1,279 @@
+<!DOCTYPE HTML>
+<html>
+   
+  <head>
+        <title>Art Juggle | Ballcom Hosting</title>
+            <meta name="viewport" content="width=device-width,
+                                 initial-scale=1">
+                <style>
+        * {
+                      margin: 0;
+                                  padding: 0;
+                                              box-sizing: border-box;
+                                                          
+                                                          /*border: solid red
+                                                            1px;*/
+                                                      }
+                /*
+                           * {
+                                         border: solid red 1px;
+                                                 }
+                                   */
+                html {
+                              max-height:100%;
+                                          max-width: 100%;
+                                                  }
+                        
+                        body {
+                                      height: 100%;
+                                                  width: 100%;
+                                                              overflow: auto;
+                                                                          background-color:
+                                                                            green;
+                                                                                      
+                                                                                  }
+                                
+                                nav {
+                                              width: 100%;
+                                                          height: 3rem;
+                                                                      background-color:
+                                                                        cadetblue;
+                                                                                  box-shadow:
+                                                                                    0 1 10px
+                                                                                      10px
+                                                                                  black;
+                                                                                              display:
+                                                                                                flex;
+                                                                                                          flex-direction:
+                                                                                                            row;
+                                                                                                                      justify-content:
+                                                                                                                        space-evenly;
+                                                                                                                                  
+                                                                                                                              }
+                                        
+                                        a {
+                                                      text-decoration: None;
+                                                              }
+                                                
+                                                .wrapper {
+                                                              border: solid red
+                                                                1px;
+                                                                          max-width:
+                                                                            100%;
+                                                                                      max-height:
+                                                                                        100%;
+                                                                                                  /*overflow:
+                                                                                                    hidden;*/
+                                                                                              }
+                                                        
+                                                        .art-grid {
+                                                                      display:
+                                                                        inline-grid;
+                                                                                  /*grid-template-columns:
+                                                                                    repeat(4,
+                                                                                    minmax(0,
+                                                                                      2fr));*/
+                                                                                  grid-template-columns:
+                                                                                    repeat(auto-fill,
+                                                                                    50vh);
+                                                                                              /*grid-gap:
+                                                                                                minmax(1rem,
+                                                                                                10rem);*/
+                                                                                              grid-gap:
+                                                                                                1rem;
+                                                                                                          grid-auto-flow:
+                                                                                                            dense;
+                                                                                                                      grid-auto-columns:
+                                                                                                                        minmax(0,
+                                                                                                                        2fr);
+                                                                                                                                  grid-auto-rows:
+                                                                                                                                    minmax(10vh,
+                                                                                                                                    50vh);
+                                                                                                                                              /*grid-template-columns:*/
+                                                                                                                                              
+                                                                                                                                              
+                                                                                                                                              overflow:
+                                                                                                                                                auto;
+                                                                                                                                                          padding:
+                                                                                                                                                            1rem;
+                                                                                                                                                                      max-height:100%;
+                                                                                                                                                                                  width:
+                                                                                                                                                                                    100%;
+                                                                                                                                                                                              max-width:
+                                                                                                                                                                                                100%;
+                                                                                                                                                                                                          background-color:
+                                                                                                                                                                                                            lightgray;
+                                                                                                                                                                                                                      margin:
+                                                                                                                                                                                                                        2rem
+                                                                                                                                                                                                                      1rem;
+                                                                                                                                                                                                                                  border-radius:
+                                                                                                                                                                                                                                    1em;
+                                                                                                                                                                                                                                              
+                                                                                                                                                                                                                                              border:
+                                                                                                                                                                                                                                                solid
+                                                                                                                                                                                                                                              red
+                                                                                                                                                                                                                                              1px;
+                                                                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                          /*line-height:
+                                                                                                                                                                                                                                                            0;*/
+                                                                                                                                                                                                                                                      }
+                                                                
+                                                                .art-grid img {
+                                                                              /*
+                                                                                 Just
+                                                                                   in
+                                                                                 case
+                                                                                 there
+                                                                                 are
+                                                                                 inline
+                                                                                 attributes
+                                                                                 */
+                                                                              width:
+                                                                                auto
+                                                                              !important;
+                                                                                          height:
+                                                                                            auto
+                                                                                          !important;
+                                                                                                  }
+                                                                        
+                                                                        
+                                                                        .art-grid
+                                                                          > * {
+                                                                                      min-width:0;
+                                                                                              }
+                                                                               
+                                                                                
+                                                                                .imgWrapper
+                                                                                  {
+                                                                                              background-color:darkgray;
+                                                                                                          max-width:
+                                                                                                            100%;
+                                                                                                                      width:
+                                                                                                                        auto;
+                                                                                                                                  max-height:
+                                                                                                                                    100%;
+                                                                                                                                              overflow:
+                                                                                                                                                visible;
+                                                                                                                                                          display:
+                                                                                                                                                            flex;
+                                                                                                                                                                      flex-direction:
+                                                                                                                                                                        row;
+                                                                                                                                                                                  border:
+                                                                                                                                                                                    1px
+                                                                                                                                                                                  solid
+                                                                                                                                                                                  gray;
+                                                                                                                                                                                              /*grid-column-end:
+                                                                                                                                                                                                span
+                                                                                                                                                                                              1;*/
+                                                                                                                                                                                          }
+                                                                                        
+                                                                                        .img
+                                                                                          {
+                                                                                                      max-width:
+                                                                                                        100%;
+                                                                                                                  min-width:
+                                                                                                                    0;
+                                                                                                                              min-height:
+                                                                                                                                0;
+                                                                                                                                          width:
+                                                                                                                                            auto;
+                                                                                                                                                      height:
+                                                                                                                                                        auto;
+                                                                                                                                                                  max-height:
+                                                                                                                                                                    75vh;
+                                                                                                                                                                              line-height:
+                                                                                                                                                                                0;
+                                                                                                                                                                                      }
+                                                                                                
+                                                                                                .pWrapper
+                                                                                                  {
+                                                                                                              max-height:
+                                                                                                                100%;
+                                                                                                                          height:100%
+                                                                                                                                      width:
+                                                                                                                                        auto;
+                                                                                                                                                  overflow:
+                                                                                                                                                    hidden;
+                                                                                                                                                              /*margin:
+                                                                                                                                                                0.25rem;*/
+                                                                                                                                                              padding:
+                                                                                                                                                                0.25rem;
+                                                                                                                                                                          /*min-width:
+                                                                                                                                                                            50%;*/
+                                                                                                                                                                          max-width:50%;
+                                                                                                                                                                                      /*padding-left:
+                                                                                                                                                                                        0.25em;*/
+                                                                                                                                                                                      border:
+                                                                                                                                                                                        1px
+                                                                                                                                                                                      solid
+                                                                                                                                                                                      green;
+                                                                                                                                                                                                  /*display:
+                                                                                                                                                                                                    inline-block;*/
+                                                                                                                                                                                              }
+                                                                                                        .pTitle{
+                                                                                                                      /*background-color:
+                                                                                                                        blue;*/
+                                                                                                                      /*height:100%;*/
+                                                                                                                      width:
+                                                                                                                        100%;
+                                                                                                                                  font-size:
+                                                                                                                                    2rem;
+                                                                                                                                              overflow:
+                                                                                                                                                hidden;
+                                                                                                                                                          padding-left:
+                                                                                                                                                            0.1em;
+                                                                                                                                                                      /*border:
+                                                                                                                                                                        solid
+                                                                                                                                                                      grey
+                                                                                                                                                                      5px;*/
+                                                                                                                                                                      margin:
+                                                                                                                                                                        0rem;
+                                                                                                                                                                                  border-radius:
+                                                                                                                                                                                    1rem;
+                                                                                                                                                                                          }
+                                                                                                                .pAuthor{
+                                                                                                                              /*height:100%;*/
+                                                                                                                              width:
+                                                                                                                                100%;
+                                                                                                                                          font-size:
+                                                                                                                                            1rem;
+                                                                                                                                                      overflow:
+                                                                                                                                                        hidden;
+                                                                                                                                                                  /*border:
+                                                                                                                                                                    solid
+                                                                                                                                                                  grey
+                                                                                                                                                                  2px;*/
+                                                                                                                                                                  margin:
+                                                                                                                                                                    0rem;
+                                                                                                                                                                              /*padding:
+                                                                                                                                                                                0.25em;
+                                                                                                                                                                                          border-radius:
+                                                                                                                                                                                            1rem;*/
+                                                                                                                                                                          }
+                                                                                                                        
+                                                                                                                        .pDescription
+                                                                                                                          {
+                                                                                                                                      /*background-color:
+                                                                                                                                        blue;*/
+                                                                                                                                      /*height:100%;*/
+                                                                                                                                      /*width:
+                                                                                                                                        10vw;*/
+                                                                                                                                      max-height:
+                                                                                                                                        90%;
+                                                                                                                                                  font-size:
+                                                                                                                                                    1.5rem;
+                                                                                                                                                              overflow:
+                                                                                                                                                                auto;
+                                                                                                                                                                          word-wrap:
+                                                                                                                                                                            break-word;
+                                                                                                                                                                                      border:
+                                                                                                                                                                                        solid
+                                                                                                                                                                                      red
+                                                                                                                                                                                      1px;
+                                                                                                                                                                                                  /*margin-top:
+                                                                                                                                                                                                    0.25em;*/
+                                                                                                                                                                                                  margin-bottom:
+                                                                                                                                                                                                    1000px;
+                                                                                                                                                                                                              padding-bottom:0.25em;
+                                                                                                                                                                                                                          
+

@@ -1,0 +1,403 @@
+body {
+    background-color: LightGray;
+    /*background-color: LightSteelBlue;*/
+    margin:0;
+    padding:0;
+    padding-top:95px;
+    /*display: flex;
+    flex-flow: column;*/
+    width: 100%;
+}
+
+
+
+/*
+#NavBar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height:10vh;
+}
+
+#NavBar > li {
+    float: left;
+}
+#NavBar > li > a {
+    display: block;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    /*background-color: CadetBlue;
+}
+#NavBar > li > a:hover {
+    background-color: Crimson;
+}
+
+nav {
+    background-color: CadetBlue;
+    height:10vh;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    font-size:30px;
+}
+*/
+/*
+nav {
+    background-color: CadetBlue;
+    list-style-type: none;
+    font-size:30px;
+    
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height:10vh;
+}
+*/
+
+header {
+    /*border-bottom:solid gray 1px;*/
+    top: 0;
+    padding-top: 0px;
+    margin: 0px;
+    background-color: lightgray;
+    position: fixed;
+    width: 100%;
+    box-shadow: 0 2px 2px -2px rgba(0,0,0,.5);
+    display: flex;
+    flex-flow: column;
+}
+
+nav {
+    overflow: hidden;
+    background-color: CadetBlue;
+    height: 3.5rem;
+    box-shadow: 0 2px 2px -2px rgba(0,0,0,.5);
+    display: flex;
+    flex-flow: row;
+    justify-content: start;
+    max-width: 100%;
+    /*align-items: stretch;
+    overflow: auto;*/
+}
+
+.logo-link {
+    background-color: red;
+    min-width: auto;
+    /*flex: 0 2 auto;*/
+    max-height: 3.5rem;
+    display:inline-flex;
+    white-space: nowrap;
+    box-sizing: content-box;
+
+    /*-because firefox has big nose and thinks img is full size-*/
+    max-width: 9.952rem;
+    /*----------------------------------------------------------*/
+}
+
+.logo {
+    width: auto;
+    height: 100%;
+    /*float:left;*/
+    margin:0;
+    padding:0;
+    display:inline-block;
+    box-sizing: content-box;
+    object-fit: contain;
+}
+
+.topnav {
+    display: inline-flex;
+    flex-flow: row;
+    justify-content: start;
+    overflow-y: hidden;
+    overflow-x: auto;
+    box-sizing: border-box;
+}
+
+nav span {
+    font-size:30px;
+    /*float:left;*/
+    justify-content: start;
+    padding: 10px;
+    /*border-right:grey 1px solid;*/
+    padding-left:10px;
+    padding-right:20px;
+    white-space: nowrap;
+}
+
+#nav-title:hover {
+    cursor: crosshair;
+    display: inline-block;
+}
+
+.topnav a {
+    /*float:left;*/
+
+    display:inline-flex;
+    text-align:center;
+    justify-content: center;
+    align-items: center;
+    font-size:17px;
+    padding: 14px 14px;
+    text-decoration: none;
+    color:black;
+    max-width: 100%;
+    /*min-width: 0;
+    min-height: 0;*/
+    box-sizing: border-box;
+    box-shadow: -5px -4px 6px -4px rgba(0,0,0,0.5);
+    white-space: nowrap;
+}
+
+
+/*
+.NavBar a {
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+*/
+
+
+.topnav a:hover {
+    background-color: Crimson;
+    box-shadow: -5px 0px 6px -5px rgba(255, 0, 51, 0.9);
+}
+
+
+form {
+    margin:0;
+    padding:10px;
+    /*height:4vh;*/
+}
+
+.SearchSettings {
+    background-color: LightGray;
+    position:relative;
+}
+
+.CardContainer{
+    display: flex;
+    flex-flow: column;
+    align-items: stretch;
+    overflow: auto;
+    /*display:inline-block;
+    height: 60vh;
+    height:%;
+    width: 100%;
+    border-top-style: solid;
+    border-color: Gray;
+    border-width:1px;
+    margin:0;
+    */
+}
+
+.card {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    flex-direction: row;
+    border-radius:16px;
+    background-color: LightSteelBLue;
+    min-height: 25vh;
+    max-height: 40vh;
+    height: 100%;
+    padding: 15px;
+    margin: 9px 10px;
+    overflow: hidden;
+
+
+    flex-basis: 0;
+    flex-grow: 1;
+    
+}
+
+.linked-wrapper {
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    flex-direction: row;
+    text-decoration: none;
+    max-width: 100%;
+    /*background-color: red;*/
+}
+
+
+
+/*
+.card a {
+    max-height: 100%;
+    text-decoration: none;
+    font-size: 0;   
+}*/
+
+.thumbnail {
+    /*position: relative;*/
+    display:inline-block;
+    max-height: 100%;
+    /*max-width: 25vw;*/
+    background-color:white;
+    border-radius: 10px;
+    /*box-sizing: border-box;*/
+}
+
+.text-wrapper {
+    font-size:initial;
+    overflow: auto;
+    padding-left: 0.5em;
+    /*padding-right: 5em;*/
+    margin: 0 1em 0 0.75em;
+    padding-top:0px;
+    display:inline-block;
+    vertical-align: top;
+    /*max-width: 900px;*/
+    width: fit-content;
+    color:darkred;
+    max-height: 100%;
+    overflow-wrap: break-word;
+    flex: 0 1 auto;
+    
+        /* flip the scrollbar to hide that text box is too big when text wrapping*/
+    direction: rtl;
+}
+
+.text-wrapper > * {
+    margin: 0.25em 0;
+    /*margin: 0 0;*/
+    /*background-color: red;*/
+    
+        /* fix text after flipping scrollbar*/
+    direction: ltr;
+    min-height: fit-content;
+}
+
+.title {
+    margin-top: 0;
+}
+
+.description {
+    margin-bottom: 0;
+}
+
+.like-container {
+    display:inline-block;
+    /*float:right;*/
+    vertical-align:top;
+    height: 100%;
+    /*margin-left: auto;*/
+    
+}
+
+.like-container img {
+    padding:10px;
+    height:32px;   
+    /*width:32px;*/
+    border-radius: 100%;
+}
+
+.like-container img:hover {
+    cursor: copy;
+}
+
+.like-container p {
+    font-size:17px;
+    display:inline-block;
+}
+
+@media (max-width:600px) {
+    nav {
+        /*height: 7rem;*/
+    }
+    .card{
+        min-height: 39vh;
+        justify-content: space-between;
+    }
+    .linked-wrapper {
+        flex-direction: column;
+        justify-content: start;
+        align-items: start;
+        /*flex-basis: 0;*/
+        max-width: 100%;
+        margin-right: 10px;
+    }
+    .thumbnail {
+        max-width: 100%;
+        flex: 2 1 auto;
+        align-self: center;
+        min-width: 0;
+        min-height: 0;
+        /*max-height: 60%;*/
+        }
+    .text-wrapper {
+        /*flex-grow: 1;*/
+        /*flex: 0 1 auto;*/
+        flex: 1 3 auto;
+        margin-top: 5px;
+        min-width: 0;
+        min-height: 0;
+        min-height: 40%;
+    }
+    .like-container{
+        /*flex: 0 1 auto;*/
+        margin-left: 0px;
+    }
+}
+
+
+.footer-controls {
+    text-align:center;
+    /*padding:10px;*/
+}
+.footer-controls * {
+    margin:10px;
+}
+
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: darkgrey lightsteelblue;
+  }
+  
+  /* Works on Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  *::-webkit-scrollbar-track {
+    background: rgb(199, 209, 223);
+    border-radius: 20px;
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background-color: rgb(116, 130, 150);
+    border-radius: 20px;
+    border: 2px solid rgb(186, 197, 211);
+}
+
+.topnav {
+    scrollbar-width: thin;
+    scrollbar-color: darkgrey lightsteelblue;
+  }
+  
+  /* Works on Chrome, Edge, and Safari */
+  .topnav::-webkit-scrollbar {
+    /*width: 8px;*/
+    height:8px;
+  }
+  
+  .topnav::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.075);
+    border-radius: 20px;
+  }
+  
+  .topnav::-webkit-scrollbar-thumb {
+    background-color: rgb(116, 130, 150);
+    border-radius: 20px;
+    border: 2px solid rgb(186, 197, 211);
+}

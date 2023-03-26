@@ -1,0 +1,477 @@
+<!DOCTYPE HTML>
+<html>
+ 
+<head>
+    <title>Art Juggle | Ballcom Hosting</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            
+            /*border: solid red 1px;*/
+        }
+        /*
+        * {
+            border: solid red 1px;
+        }
+        */
+        html {
+            max-height:100%;
+            max-width: 100%;
+        }
+        
+        body {
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+            background-color: green;
+            
+        }
+        
+        header {
+            width: 100%;
+            height: auto;
+            box-shadow: 0 0 5px 1px black;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        nav {
+            width: 100%;
+            height: 3rem;
+            background-color: cadetblue;
+            box-shadow: 0 0 3px 1px black;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            align-items: center;
+            
+        }
+        
+        #title {
+            background-color: steelblue;
+            border-radius: 1rem;
+            margin: 0.25rem;
+            padding: 0.5rem;
+        }
+        
+        
+        a {
+            text-decoration: None;
+        }
+        
+        .button {
+            background-color: lightblue;
+            color: rgb(35, 35, 35);
+            border-radius: 15px 25px 15px;
+            border: steelblue 1px solid;
+            font-size: 1.75rem;
+            padding: 0.25rem 0.75rem;
+            /*margin: 0 0.5rem;*/
+            height: 1.5em;
+        }
+        
+        .searchbar {
+            background-color: skyblue;
+            padding: 0.375rem;
+        }
+        
+        .wrapper {
+            /*border: solid red 1px;*/
+            max-width: 100%;
+            max-height: 100%;
+            /*overflow: hidden;*/
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .art-grid {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            /*grid-template-columns: repeat(4, minmax(0, 2fr));*/
+            /*grid-template-columns: repeat(auto-fit, minmax(10vw,1fr));*/
+            PLACEHOLDER
+            /*grid-gap: minmax(1rem, 10rem);*/
+            /*grid-gap: 1rem;*/
+            /*justify-content: space-between;*/
+            align-items: center;
+            /*grid-auto-columns: minmax(0, 2fr);*/
+            /*grid-auto-columns: minmax(10%, 25%);*/
+            /*grid-auto-rows: minmax(10vh, 50vh);*/
+            
+            /*grid-template-columns:*/
+            
+            justify-content: space-around;
+            overflow: auto;
+            padding: 1rem;
+            max-height:100%;
+            width: 100%;
+            max-width: 100%;
+            background-color: lightgray;
+            margin: 2rem 1rem;
+            border-radius: 1em;
+            min-width: 0;
+            border: solid darkgreen 1px;
+            
+            gap: 1rem;
+            /*line-height: 0;*/
+        }
+        
+        .art-grid img {
+            /* Just in case there are inline attributes */
+            width: auto !important;
+            height: auto !important;
+        }
+        
+        
+        .art-grid > * {
+            min-width:0;
+        }
+       
+        
+        .imgWrapper {
+            background-color:darkgray;
+            /*max-width: 100%;*/
+            /*width: content;*/
+            /*min-height: 40vh;*/
+            /*max-height: 40vh;*/
+            height: 40vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: space-around;
+            
+            flex-direction: row;
+            border: 1px solid gray;
+            background-color: lightgray;
+            /*grid-column-end: span 1;*/
+            /*flex: 1 1 auto;*/
+            /*flex-basis: 350px;*/
+        }
+        
+        .img {
+            /*max-width: 100%;*/
+            /*min-width: 100%;*/
+            /*min-height: 0;*/
+            /*min-width: 0;*/
+            /*min-width: 100%;
+            max-height: 100%;
+            max-width: 100%;*/
+            /*flex-grow: 1;*/
+            flex-shrink: 0;
+            vertical-align: middle;
+            max-width: 100%;
+            height: auto;
+            /*max-height: 75vh;*/
+            line-height: 0;
+            object-fit: cover;
+            
+            z-index: 1;
+        }
+        
+        .img:onclick {
+        transform: scale(2);
+            
+            .img:{}
+        }
+        
+        .pWrapper {
+            display: flex;
+            /*flex-grow: 1;*/
+            flex-direction: column;
+            /*max-height: 100%;*/
+            height: auto;
+            /*width: 100%;*/
+            /*max-width: 100%;*/
+            overflow: visible;
+            /*margin: 0.25rem;*/
+            padding: 0.25rem;
+            /*padding-bottom: 100px;*/
+            /*background-color:blue;*/
+            min-width: 0;
+            max-width: 100%;
+            /*padding-left: 0.25em;*/
+            /*border: 1px solid green;*/
+            /*display: inline-block;*/
+            
+            /*z-index: -1;*/
+        }
+        
+        
+        
+        .art-grid::after {
+            content: "";
+            flex-basis: 350px;
+        }
+        .pTitle{
+            /*background-color: blue;*/
+            /*height:100%;*/
+            width: 100%;
+            font-size: 2rem;
+            overflow: hidden;
+            /*padding-left: 0.1em;*/
+            /*border: solid pink 1px;*/`
+            margin: 0;
+            flex-shrink: 0;
+        }
+        .pAuthor{
+            /*height:100%;*/
+            width: 100%;
+            font-size: 1rem;
+            overflow: hidden;
+            padding-top: 0;
+            flex-shrink: 0;
+            /*padding-bottom: 0.25rem;*/
+            /*border: solid grey 2px;*/
+            margin: 0rem;
+            /*padding: 0.25em;
+            border-radius: 1rem;*/
+            display: block;
+            /*border: 1px red solid;*/
+        }
+        
+        .pDescription {
+            /*background-color: blue;*/
+            /*height:100%;*/
+            /*width: 10vw;*/
+            max-height: 100%;
+            /*height: 1000px;*/
+            font-size: 1.5rem;
+            overflow: auto;
+            word-wrap: break-word;
+            /*border: solid red 1px;*/
+            
+            margin: 0.25em;
+            margin-top: 0.25em;
+            margin-bottom: 0.25em;
+            padding: 0.25em;
+            /*padding-bottom:0.25em;*/
+            display:block;
+            
+            border-top: solid grey 1px;
+            border-bottom: solid grey 1px;
+            /*border-radius: 1rem;*/
+        }
+        
+        *.animated {
+            transition: transform ease-out 0.35s;
+            /*transition: padding-right 1s, transform ease-out 0.25s;*/
+            /*background-color: blue;*/
+        }
+        
+        /*
+        img.animated {
+            transition: all 1s;
+        }
+        
+        * {
+            transition: all 1s;
+        }
+        */
+        
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <h1 id="title">Art Juggle</h1>
+            <a id="home" class="nav-button button" href="#home">Home</a>
+            <a class="button" href="#artjuggle/post">Post Art!</a>
+        </nav>
+        <div class="searchbar">
+            <button style="padding:0.125rem;" onclick="refresh()">Refresh</button>
+        </div>
+    </header>
+    <div class="wrapper">
+        <div id="art-grid" class="art-grid">
+        <!--    <img src="../Images/WeirdBall.png" class="testimage">
+            <img src="../Images/WeirdBall.png" class="testimage">
+            <img src="../Images/RomanceTurtle.jpg" class="testimage wide">
+            <img src="../Images/WeirdBall.png" class="testimage">
+            <img src="../Images/WeirdBall.png" class="testimage">
+            <img src="../Images/WeirdBall.png" class="testimage">
+            <img src="../Images/WeirdBall.png" class="testimage">
+            <img src="../Images/WeirdBall.png" class="testimage">
+            <img src="../Images/WeirdBall.png" class="testimage">
+            <img src="../Images/WeirdBall.png" class="testimage">-->
+        </div>
+    </div>  
+    
+    <script>
+        /*
+        var data = {
+            0: {title: "Wierd Ball",
+                author:"Ivy Wanger",
+                file_path:"../Images/WeirdBall.png",
+                description:"cool art very cool",
+                alt:"Unexplained cartoon football dabbing"},
+            1: {title: "Turtle Ball",
+                author:"Ian Wanger",
+                file_path:"../Images/RomanceTurtle.jpg",
+                description:"snazzy",
+                alt:"realistic turtle with red ball for head"},
+            2: {title: "Wierd Ball 2",
+                author: "Ivy Wanger",
+                file_path: "../Images/WeirdBall.png",
+                description:"awesome"},
+            3: {title: "Wierd Ball 3",
+                author: "Ivy Wanger",
+                file_path: "../Images/WeirdBall.png",
+                description:"awesome"},
+            4: {title: "Turtle Ball 2",
+                author:"Ian Wanger",
+                file_path:"../Images/RomanceTurtle.jpg",
+                description:"LongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLongLong",
+                alt:"realistic turtle with red ball for head"},
+            
+        };
+        */
+        var data  
+
+
+        async function refresh() {
+            //alert("dogs");
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                //alert(this.status, xhttp.responseXML);
+                if (this.readyState == 4 && this.status == 200) {
+                    
+                    data = JSON.parse(xhttp.responseText) //AJAX
+                    //alert(data);
+                    //alert(typeof(data));
+                    if (data[0]) {get_images();}
+                    else {alert("No art found");}
+                }
+                else if (this.readyState == 4 && this.status != 200) {
+                    alert(`Error code: ${this.status}`);
+                }
+            };
+            //alert("working");
+            xhttp.open("GET", "artjuggle/posts", true);
+            xhttp.send();
+            //alert("test2")
+            //alert(data); 
+            //alert("test3"); 
+            
+        }
+        //alert("bingo")
+        //function big_picture_mode(wrapper,i) {
+            //var pWrapper = document.createElement("div");
+            //pWrapper.className = "pWrapper";
+            //var pElement = document.createElement("p");
+            //pElement.className = "pElement";
+            //pElement.innerHTML = data[i].description;
+            //alert(data[i].description);
+            
+            //pWrapper.appendChild(pElement);
+            //wrapper.appendChild(pWrapper);
+            
+            
+            //pWrapper.style.height = "100px";
+            //alert("done");
+        //}
+        
+        //function animate(wrapper) {
+            //wrapper.style.gridColumn="span 4";
+            //wrapper.style.borderRadius="0 0 1rem 1rem";
+        //}   
+        
+        function get_images() {
+            
+            //Ajax bs
+            //Routes: ./ArtJuggle/Image/{id} -> .png | .jpg | .gif
+            // ./ArtJuggle/search?q={keyword}&sort={new|old|popularity} -> HtmlResponse | JSON
+            
+
+            const grid = document.getElementById("art-grid");
+            grid.textContent = "";  //clear children 
+            
+            for(let i in data){
+                //alert("workwork");
+                let imgWrapper = document.createElement('div');
+                imgWrapper.className = "imgWrapper";
+                
+                imgWrapper.addEventListener("click", function() {
+                    
+                    //deleteOld();
+                    let old = document.getElementsByClassName('pWrapper');
+
+                    while(old[0]) {
+                        old[0].parentNode.removeChild(old[0]);
+                    }
+
+                    //unAnimate();
+                    let themElements = document.getElementsByClassName('imgWrapper');
+                    for(let o = 0; o < themElements.length; o++) {
+                        //alert(themElements[o]);
+                        themElements[o].removeAttribute('style');
+                    }
+                    
+                    //animate(wrapper);
+                    //imgWrapper.style.gridColumn="span 2"; //unused | not using grid anymore
+                    imgWrapper.style.borderRadius="0 1rem 1rem 0";
+                    //imgWrapper.style.borderRadius="0 0 1rem 1rem";
+                    
+                    //big_picture_mode(wrapper,i);
+                    let pWrapper = document.createElement("div");
+                    pWrapper.className = "pWrapper animated";
+                    //pWrapper.style.width = "0";
+                    let pTitle = document.createElement("p");
+                    pTitle.className = "pTitle";
+                    pTitle.innerHTML = data[i].title;
+                    pWrapper.appendChild(pTitle);
+                    
+                    pWrapper.style.height = "100%";
+                    
+                    let pAuthor = document.createElement("p");
+                    pAuthor.className = "pAuthor";
+                    pAuthor.innerHTML = `Author: <i><a href="placeholder">${data[i].author}</a></i>`;
+                    pWrapper.appendChild(pAuthor);
+                    
+                    let pDescription = document.createElement("p");
+                    pDescription.className = "pDescription";
+                    pDescription.innerHTML = data[i].description;
+                    pWrapper.appendChild(pDescription);
+                    
+                    imgWrapper.appendChild(pWrapper);
+                    
+                    //animate2()
+                    //pWrapper.style.paddingRight = "100%"
+                    pWrapper.style.transform = "translate(-100%)";
+                    /*pWrapper.style.backgroundColor = "blue";*/
+                    setTimeout(() => { //pWrapper.style.paddingLeft = ""; 
+                        //pWrapper.style.paddingRight = "";
+                        pWrapper.style.transform = "";
+                    }, 100);     
+                });
+                
+                var img = document.createElement('img');
+                img.className = "img";
+                //alert(data[i]["id"]);
+                img.src = ("artjuggle/posts/" + data[i].id);
+                if (data[i].alt) {
+                    img.alt = data[i].alt;
+                }
+                
+                imgWrapper.appendChild(img);
+                
+                grid.appendChild(imgWrapper);
+                //alert("large w");
+            }
+        }
+        
+        //document.addEventListener("load", get_images)
+        window.onload = refresh;
+        //alert("roth");
+        
+        
+        
+        // ADD ARROW KEY CONTROLS FOR ART FOCUS
+    </script>
+</body>
+ 
+</html>

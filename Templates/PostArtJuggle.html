@@ -1,0 +1,198 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            html {
+                max-height: 100%;
+                max-width: 100%;
+                height: 100%;
+                width: 100%;
+            }
+
+            body {
+                height: 100%;
+                width: 100%;
+                overflow: auto;
+                background-color: green;
+                border: blue solid 1px;
+                display: flex;
+                flex-direction: column;
+            }
+
+            nav {
+                width: 100%;
+                height: 3rem;
+                background-color: cadetblue;
+                box-shadow: 0 1 10px 10px black;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+                align-items: center;
+
+            }
+
+            #title {
+                background-color: steelblue;
+                border-radius: 1rem;
+                margin: 0.25rem;
+                padding: 0.5rem;
+            }
+
+
+            a {
+                text-decoration: None;
+            }
+            
+            .button {
+                background-color: lightblue;
+                color: rgb(35, 35, 35);
+                border-radius: 15px 25px 15px;
+                border: steelblue 1px solid;
+                font-size: 1.75rem;
+                padding: 0.25rem 0.75rem;
+                /*margin: 0 0.5rem;*/
+                height: 1.5em;
+            }
+            
+            .wrapper {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 100%;
+                max-width: 100%;
+                max-height: 100%;
+                border: 1px solid red;
+            }
+            
+            form {
+                background-color: lightgray;
+                border: solid 1px gray;
+                margin: 3rem;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                max-width: 100%;
+                max-height: 100%;
+                justify-content: top;
+                padding: 1rem;
+            }
+            
+            .uploadWrapper {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                border: solid 1px gray;
+                border-radius: 1rem;
+                padding: 1rem;
+                background-color: darkgray;
+            }
+            
+            #fileWrapper {
+                display: flex;
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+            
+            textarea {
+                padding: 0.25rem;
+                max-width: 100%;
+                line-height: 1.5;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                box-shadow: 1px 1px 1px #999;
+            }
+            
+            #formTitle {
+                padding: 0.25rem;
+                max-width: 100%;
+                line-height: 1.5;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                box-shadow: 1px 1px 1px #999;
+            }
+            
+            #submit {
+                padding: 0.25rem;
+                max-width: 100%;
+                line-height: 1.5;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                box-shadow: 1px 1px 1px #999;
+            }
+            
+
+            /*
+            form > * {
+                margin: 1rem;
+            }
+            */
+        </style>
+        
+        <script>
+            function dropHandler(ev) {
+                console.log('File(s) dropped');
+                
+                // Prevent default behavior (Prevent file from being opened)
+                ev.preventDefault();
+                
+                if (ev.dataTransfer.items) {
+                    // Use DataTransferItemList interface to access the file(s)
+                    [...ev.dataTransfer.items].forEach((item, i) => {
+                        if (item.kind === 'file') {
+                            const file = item.getAsFile();
+                            console.log(`… file[${i}].name = ${file.name}`);
+                        }
+                        else {
+                            alert(item[0]);
+                        }    
+                    })
+                }
+            }
+                
+            function dragOverHandler(ev) {
+                console.log('File(s) in drop zone');
+
+                // Prevent default behavior (Prevent file from being opened)
+                ev.preventDefault();
+            }
+        </script>
+    </head>
+    
+    <body>
+        <nav>
+            <h1 id="title">Art Juggle</h1>
+            <a id="home" class="nav-button button" href="#home">Home</a>
+            <!--<button class="button">Post Art!</button>-->
+        </nav>
+        <div class="wrapper">
+            <form method="POST" action="https://ballcom.xyz/api/artjuggle" enctype="multipart/form-data">
+                <div class="uploadWrapper" ondrop="dropHandler(event);" ondragover="dragOverHandler(event);">
+                    <div id="fileWrapper">
+                        <label for="image">Upload a photo for your post!</label>
+                        <input type="file" name="image" accept="image/*" multiple required>
+                    </div>
+                    <p>Or drag and drop an image file here!</p>
+                </div>
+                <br>
+                
+                <label for="title">Title:</label>
+                <input type="text" id="formTitle" name="title">
+                <br>
+                
+                <label for="description">Description:</label>
+                <textarea name="description" rows="3" cols="2"></textarea>
+                <br>
+                
+                <input type=submit id="submit" value="Post!">
+            </form>
+        </div>
+    </body>
+</html>

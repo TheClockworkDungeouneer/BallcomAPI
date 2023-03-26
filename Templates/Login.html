@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login | Ballcom Library</title>
+
+        <style>
+            * {
+                padding: 0;
+                margin: 0;
+            }
+            body {
+                background-color: lightgray;
+            }
+            .button {
+                background-color: lightblue;
+                color: rgb(35, 35, 35);
+                border-radius: 15px 25px 15px;
+                border: steelblue 1px solid;
+                font-size: 2rem;
+                padding: 0.75rem;
+                margin: 0 0.5rem;
+            }
+            .button:active {
+                background-color: skyblue;
+            }
+
+            *:disabled {
+                background-color: darkGrey; 
+            }
+
+            form {
+                display: flex;
+                flex-direction: column;
+                margin: 1rem;
+                padding: 1rem;
+                border: solid 1px grey;
+                border-radius: 10px;
+            }
+            form:invalid {
+                border: double 1px red;
+            }
+            
+            header {
+                background-color: cadetblue;
+                padding: 1rem;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+        
+            }
+            .text-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            /*
+            .text-container >  * {
+                pass
+            }
+            */
+            .flex-container {
+                display: flex;
+                flex-direction: row;
+                /*margin: 1rem;*/
+            }
+            
+            a {
+                color: crimson; /*rgb(198, 52, 52)*/
+            }
+            a:active {
+                color: skyblue;
+            }
+
+            #errorbox {
+                border: 1px dashed red;
+                visibility: hidden;
+            }
+
+            #errortext {
+                background-color: pink;
+            }
+
+        </style>
+    </head>
+    <body>
+        <!--Add script to notify if someone has been logged out [orange block with text "Your login has expired, please log back in!"] (respond to to 401 code with hypermedia with token expired. Possibly use Jinja2 template?)-->
+        <header>
+            <div class="text-container">
+                <h1>Ballcom Library | Login</h1>
+                <!--<h2>Login to access your account.<br>To continue as guest <a href="guest_placeholder">click here!</a></h2>-->
+            </div>
+            <!--
+            <div class="text-container">
+                 <h1>Ballcom Library</h1>   
+            </div>
+            -->
+            <div class="flex-container">
+                <button onclick="open('https://ballcom.xyz/Account/Create')" class="button">Create an account!</button>
+                <button onclick="open(guest_placeholder)" class="button">Continue as guest</button>
+            </div>
+        </header>
+            {# {% if root_path %}
+                <script>alert("{{ root_path + "/token" }}")</script>
+                <form method="post" action="/api/token">
+                <form method="post" action={{root_path + '/token/'}}>
+                <form method="post" action= "/api/token/" >
+                <form method="post" action= "/token/" >
+            {% else %}
+                <form method="post" action="/token/">
+            {% endif %} 
+            #}
+
+        <form id="daForm" method="post" action= "./login" >
+            <label for="username">Username:</label>
+            <input type="text" name="username" placeholder="SillySausage345" maxlength="256">
+            <label for="password">Password:</label>
+            <input type="password" name="password" placeholder="NotPassword345" maxlength="256">
+            <input type="submit">
+        </form>
+        <a onclick="alert('lol, unimplemented, ask the dev to fix it at ballcomtact@gmail.com')"></a>
+        
+        <div id="errorbox">
+            <p id="errortext">Placeholder</p>
+        </div>
+
+        <script>
+
+  function sendForm() {
+     var xhttp = new XMLHttpRequest();
+          xhttp.open("POST", "./login");
+          xhttp.onload = function(event) {
+            /*alert("Super cool server responded with: " + JSON.parse(event.target.response).detail);*/
+            /*alert(typeof(JSON.parse(event.target.response).detail) )*/
+            if (typeof(JSON.parse(event.target.response).detail) == "string") {
+              document.getElementById("errortext").innerHTML = (JSON.parse(event.target.response).detail);
+              document.getElementById("errorbox").style.visibility = "visible";
+            }
+          }
+          var formData = new FormData(document.getElementById("daForm"));
+          xhttp.send(formData);
+            }
+
+try  {
+  /*alert("work");*/
+  form = document.getElementById("daForm");
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    document.getElementById("errorbox").style.visibility = "hidden";
+    sendForm();
+  })
+
+          }
+          catch (error) {alert(error)};
+          /*document.getElementById("errorbox").style.visibility = "visible";*/
+                    
+        </script>
+    </body>
+</html>

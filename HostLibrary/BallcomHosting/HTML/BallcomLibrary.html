@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ballcom Hosting | Site Library</title>
+        <link rel="icon" type="image/x-icon" href='../Images/TempFavicon.ico'>
+        <link href="/CSS/BallcomStyleV2.css" rel="stylesheet">
+        <meta charset="UTF-8">
+        <meta name="keywords" content="HTML, CSS, JavaScript, Home, Library">
+        <meta name="description" content="Ballcom Hosting has a wide range of user made content to browse to your pleasure!">
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">
+    </head>
+    <body>
+        <script>
+            const version = "0.0.4"
+            const changelogLink = "BallcomLibrary(v-0.0.4)/BallcomLibrary[v-0.0.4]/changelog.txt"
+            alert(`This site is a prototype demonstration of the final site, not all functionallity \(most buttons\) are implemented as of today. The changelog can be found at [link].\nVERSION: ${version}`);
+        </script>
+        <header>
+
+            <nav class="NavBar">
+                <a class="logo-link" href='#Logo'>
+                    <img class="logo" src="../Images/BallcomLogoPlaceholder.png" alt="Ballcom Logo">
+                </a>
+                <div class="topnav">
+                    <span id="nav-title">Ballcom Hosting</span>
+                    <a href="BallcomLibraryV2.html">Home</a>
+                    <a href="#News">News</a>
+                    <a href="#Events">Events</a>
+                    <a href="#About">About Ballcom</a>
+                    <a href="#Rules">Rules</a>
+                    <a href="#Request">Request Your Site</a>
+                    <a href="BallcomHostingContact.html">Contact</a>
+                </div>
+            </nav>
+
+            <div class='SearchSettings'>
+                <form class="search" role="search">
+                    <label>
+                        Search
+                        <input type="search">
+                    </label>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </header>
+        
+        
+        <div class='CardContainer'>
+            
+            <div class="card">
+                <a class="linked-wrapper" href="#demo">
+                    <img class="thumbnail" src='../../../Images/WeirdBall.png' alt="Weird ball">
+                    <div class="text-wrapper">
+                        <h1 class="title">Epic Ball Website</h1>
+                        <h2 class="description">A website for all your ball needs, we have every ball for you!</h2>
+                    </div>
+                </a>
+                <div class="like-container">
+                    <p>0 Likes</p>
+                    <a title="Like this post"   
+                       href="" >  
+                        <img title= "Like Button"
+                             src='../../../Images/Ball_Image.ico'   
+                             alt="like button"
+                        >  
+                    </a>  
+                </div>
+            </div>
+            <div class="card">
+                <a class="linked-wrapper" href="./Content/ReptileWebsite.html">
+                    <img class="thumbnail" src='../../../Images/RomanceTurtle.jpg' alt="turtle with a ball for a head">
+                    <!--<iframe></iframe>-->
+                    <div class="text-wrapper">
+                        <h1 class="title">Jimmy's Turtle Market</h1>
+                        <h2 class="description">We at payton love reptiles, here is where you can adopt one of your own!</h2>
+                    </div>
+                </a>
+                <div class="like-container">
+                    <p>0 Likes</p>
+                    <a title="Like this post"   
+                       href="" >  
+                        <img title= "Like Button"
+                             src='../../../Images/Ball_Image.ico'   
+                             alt="like button"
+                        >  
+                    </a>  
+                </div>
+            </div>
+            <div class="card">
+                <a class="linked-wrapper" href='../../../newball.html'>
+                    <img class="thumbnail" src='../../../Images/BallLogo.jpg' alt="red dodgeball ball">
+                    <!--<iframe></iframe>-->
+                    <div class="text-wrapper">
+                        <h1 class="title">Ballcom</h1>
+                        <h2 class="description">A hobby website for all ball lovers, researchers, collectors, zoologists, and fanatics! Explore our ball classifications and are many ball based attractions! Will you be the one to conquer the mighty <i>BALL!</i>, or will this crule romance story end in heartbreak?</h2>
+                    </div>
+                </a>
+                <div class="like-container">
+                    <p>Infinite Likes</p>
+                    <a
+                        title="Like this post"   
+                        href=""
+                       >  
+                    <img title= "Like Button"
+                        src='../../../Images/Ball_Image.ico'   
+                        alt="like button" 
+                    >  
+                    </a>  
+                </div>
+            </div>
+            <div class="card">
+                <a class="linked-wrapper" href='../../../BallRomance/RomanticForward.html'>
+                    <img class="thumbnail" src='../../../Images/CuteBall.png' alt="red ball with skirt and legs">
+                    <!--<iframe></iframe>-->
+                    <div class="text-wrapper">
+                        <h1 class="title">Ballcom Romance Adventure 2</h1>
+                        <h2 class="description">Go on an adventure to find love and kill god.</h2>
+                    </div>
+                </a>
+                <div class="like-container">
+                    <p>0 Likes</p>
+                    <a title="Like this post"   
+                       href="" >  
+                        <img title= "Like Button"
+                             src='../../../Images/Ball_Image.ico'   
+                             alt="like button"
+                        >  
+                    </a>  
+                </div>
+            </div><div class="card">
+                <a class="linked-wrapper" href="">PLACE_HOLDER</a>
+            </div>
+            <div class="card">
+                <a class="linked-wrapper" href="">PLACE_HOLDER</a>
+            </div>
+
+            <div class="footer-controls">
+                <script>
+                    try{
+                        var pages = 3
+                        var element
+                        var link
+                        const div = document.getElementsByClassName('footer-controls')[0];
+
+                        for(let i=1; i <= pages;i++){
+                            link = document.createElement("a");
+                            link.href = "#";
+                            element = document.createElement("span");
+                            element.textContent = i;
+                            element.className = "footer-controls";
+                            link.appendChild(element);
+                            div.appendChild(link); 
+                        }
+                    }catch(error){alert(error);}
+                </script>
+                <br>
+                <a href="#"><span>&#60;- previous page</span></a>
+                <a href="#"><span>next page-&#62;</span></a>
+            </div>
+        </div>
+    </body>
+</html>
