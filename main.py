@@ -22,7 +22,7 @@ import starlette.status as status
 #from starlette.status import HTTP_302_FOUND, HTTP_303_SEE_OTHER
 from starlette.status import HTTP_302_FOUND, HTTP_303_SEE_OTHER, HTTP_500_INTERNAL_SERVER_ERROR
 
-from fastapi import Depends, FastAPI, Query, Path, Form, Request, File, UploadFile, Response, HTTPException, Cookie
+from fastapi import Depends, FastAPI, Query, Path, Form, Request, File, UploadFile, Response, HTTPException, Cookie, Security
 from starlette.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import HTMLResponse
@@ -33,7 +33,7 @@ from fastapi.templating import Jinja2Templates
 
 from jose import JWTError, jwt
 
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm, SecurityScopes
 #from passlib.context import CryptContext
 
 import html
@@ -42,6 +42,7 @@ from dotenv import load_dotenv
 
 ## Relative Imports------------
 from routers import proxy, roundtable
+from routers.skyball_ballistic import skyball_ballistic
 from dependencies import security
 from dependencies.database import * 
 from dependencies.templating import templates
@@ -340,7 +341,7 @@ app = FastAPI(
 
 app.include_router(proxy.router)
 app.include_router(roundtable.router)
-
+app.include_router(skyball_ballistic.router)
 
 
 
@@ -634,9 +635,19 @@ async def login_token(request: Request, response: Response, form_data: OAuth2Pas
     		headers={"WWW-Authenticate": "Bearer"},
     	)
     '''
+    if form_data.scopes is None: # form_data.scopes:
+        user_scopes = [scope for scope in form_data.scopes if scope in user.scopes]
+        for scope in form_data.scopes:
+            if scope not in user.scopes:
+                print(f"scope, {scope}, denied") 
+    else:
+        for scope in form_data.scopes:
+            print(f"SCOPE: {scope}, DENIED!")
+        user_scopes = []
+
     access_token_expires = datetime.timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = security.create_access_token(
-		data={"sub": user.Username}, expires_delta=access_token_expires
+        data={"sub": user.Username, "scopes": user_scopes}, expires_delta=access_token_expires
     )
     response.set_cookie(key="cookie_token", value=access_token, httponly=True,secure=True, max_age=(60*ACCESS_TOKEN_EXPIRE_MINUTES))
     return {"access_token": access_token, "token_type": "bearer", "detail": "Login accepted"}

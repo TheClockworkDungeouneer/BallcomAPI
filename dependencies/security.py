@@ -1,7 +1,7 @@
 from sqlmodel import Session
 #from fastapi import Depends
 from fastapi import Depends, FastAPI, Query, Path, Form, Request, File, UploadFile, Response, HTTPException, WebSocketException, Cookie
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm, SecurityScopes
 from typing import Union
 from pydantic import BaseModel
 from passlib.context import CryptContext
@@ -28,7 +28,13 @@ load_dotenv()
 SECRET_KEY = os.environ.get("SECRET_KEY")
 ALGORITHM = os.environ.get("ALGORITHM")
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login", auto_error=False)
+oauth2_scheme = OAuth2PasswordBearer(
+        tokenUrl="login",
+        scopes={
+            "admin":"Ability to do things such as modify permissions on other accounts.",
+            "butt": "User has ability to be stinky."    
+        },
+        auto_error=False)
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
@@ -112,7 +118,9 @@ async def get_websocket_user(
 async def get_current_user(
     token: Optional[str] = Depends(oauth2_scheme), 
     cookie_token: Optional[str] = Cookie(default=None),
-    session: Session = Depends(get_session)
+    session: Session = Depends(get_session),
+	*,
+    security_scopes: SecurityScopes
 ):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,

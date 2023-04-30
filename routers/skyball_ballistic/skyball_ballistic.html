@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ball Game | Ballcom</title>
+       	<meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            html {
+                width:100%;
+            }
+            body {
+                width: 100%;
+                /*background-color: red;*/
+            }
+            #screen {
+                width: 600px;
+                height: 600px;
+                border: solid 1px black;
+                background: lightskyblue;
+            }
+
+            #messages {
+                background-color:lightgrey;
+            }
+
+            #dev_out {
+                color: black;
+                /*height: 20px;
+                background-color: green;*/
+            }
+            #control-wrapper {
+                border: solid 1px darkgrey;
+                background-color: lightgrey;
+                width: 100%;
+                height: 300px;
+            }
+            .control-button {
+                display:inline-block;
+                border: 1px black solid;
+                background-color: lightgrey;
+                border-radius: 10px;
+                color: black;
+                width:30%;
+                height:100%;
+                user-select: none;
+            }
+            .control-button:active {
+                background-color:grey;
+                color:white;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>WebSocket Ball Game</h1>
+        <p id="dev_out">placeholder</p>
+        <canvas id='screen'></canvas>
+        <br>
+        <div id="control-wrapper">
+            <button id='left' class="control-button">&larr;</button>
+            <button id='shoot-button' class="control-button">SHOOT!</button> 
+            <button id='right' class="control-button">&rarr;</button>
+        </div>
+        <ul id="messages">
+        </ul>
+        
+
+
+        <script>
+            //alert("test1");
+            try {
+            var ws = new WebSocket("wss://ballcom.xyz/api/skyball/ws");
+            } catch (e) {alert(e)}
+            //alert("working");
+            ws.onmessage = function(event) {
+                //alert("recived");
+                var messages = document.getElementById('messages')
+                var message = document.createElement('li')
+                var content = document.createTextNode(event.data)
+                message.appendChild(content)
+                messages.appendChild(message)
+            };
+
+            ws.onerror = function(event) {alert("error")}; 
+           
+            ws.onclose = function(event) {alert("Connection closed")};
+
+            function sendMessage(event) {
+                event.preventDefault();
+                //alert(ws.readyState, ws.url);
+                var input = document.getElementById("messageText");
+                //alert("test3");
+                try {
+                    ws.send(input.value);
+                } catch (error) {
+                    alert(error)
+                }
+                //alert(`sent, message: ${input.value}`);
+                input.value = ''
+            }
+            
+
+            screen = document.getElementById("screen");
+            screen.height = 600;
+            screen.width = 600;
+            
+            const ctx = screen.getContext("2d");
+
+
+            ctx.lineWidth = 2;
+            //ctx.lineColor = "red";
+            
+            //ctx.strokeRect(75,75,100,50);
+            
+            const dev_out = document.getElementById("dev_out");
+
+            print = function(text) {
+                dev_out.innerText = text;
+                //alert("dog")
+            }
+
+
+
+            let rightPressed = false;
+            let leftPressed = false;
+            let upPressed = false;
+            let downPressed = false;
+
+            //alert("bang");
+            
+            const left = document.getElementById("left");
+            const right = document.getElementById("right");
+            const up_button = document.getElementById("shoot-button");  
+            //alert("bang");
+            function keyDownHandler(event) {
+                if (event.keyCode === 39 || right.active) {
+                  rightPressed = true;
+                } else if (event.keyCode === 37) {
+                  leftPressed = true;
+                }
+                if (event.keyCode === 40) {
+                  downPressed = true;
+                } else if (event.keyCode === 38) {
+                  upPressed = true;
+                }
+              }
+
+            function keyUpHandler(event) {
+            if (event.keyCode === 39) {
+                rightPressed = false;
+            } else if (event.keyCode === 37) {
+                leftPressed = false;
+            }
+            if (event.keyCode === 40) {
+                downPressed = false;
+            } else if (event.keyCode === 38) {
+                upPressed = false;
+            }
+            }
+
+            document.addEventListener("keydown", keyDownHandler, false);
+            document.addEventListener("keyup", keyUpHandler, false);
+            
+            function leftDown() {
+                leftPressed = true;
+            }
+            function leftUp() {
+                leftPressed = false;
+            }
+            left.ontouchstart = leftDown;
+            left.ontouchend = leftUp;
+
+            function rightDown() {
+                rightPressed = true;
+            }
+            function rightUp() {
+                rightPressed = false;
+            }
+            right.ontouchstart = rightDown;
+            right.ontouchend = rightUp;
+           
+            function up_buttonDown() {
+                upPressed = true;
+            }
+            function up_buttonUp() {
+                upPressed = false;
+            }
+            
+            up_button.ontouchstart = up_buttonDown;
+            up_button.ontouchend = up_buttonUp;
+
+            
+            const min_speed = 3
+            const max_speed = 10
+            const turn_mult = 1
+            const turn_bias = 1
+            const speed_inc = 0.02
+            
+
+            var gameObjects = []
+
+            var p1;
+
+            class GameObject{
+                constructor(x=300,y=300, rad=0, speed = 3, owner=p1){
+                    this.ctx = ctx;
+                    this.x = x;
+                    this.y = y;
+                    // when player turns their speed goes down, speed goes up over time.
+                    this.speed = speed;
+                    this.rad = rad; // angle of movement
+                    this.owner = owner;
+                    gameObjects.push(this)
+                }
+
+                step() {
+                    var rad = this.rad
+                    var speed = this.speed
+
+                    const delta_x = (speed * -Math.sin(rad));
+                    const delta_y = (speed * Math.cos(rad));
+                    this.x = (this.x + delta_x) % 600;
+                    this.y = (this.y + delta_y) % 600;
+
+                    if (this.x < 0) {
+                        this.x = 600+this.x
+                    } 
+                    if (this.y < 0) {
+                        this.y = 600+this.y
+                    } 
+                }
+            }
+
+            class Bullet extends GameObject {
+                draw() {
+                    const rad = this.rad;
+                    const x = this.x;
+                    const y = this.y;
+                    
+                    ctx.translate(x,y)
+                    //ctx.rotate(rad);
+                    ctx.beginPath();
+                    ctx.fillStyle = "yellow";
+                    ctx.arc(0, 0, 10, 0, 2 * Math.PI);
+                    ctx.fill();
+                    ctx.stroke();
+                    //ctx.rotate(-1*rad);
+                    ctx.translate(-x,-y);
+                }
+            }
+            
+            class Player extends GameObject{
+                constructor(...args) {
+                    super(...args);
+                    this.canShoot = true;
+                    //alert("bang1");
+                }
+                
+                control() {
+                    this.speed = Math.min(this.speed + speed_inc, max_speed);
+                    if (leftPressed) {
+                        this.rad -= (Math.PI/180 * (1/this.speed + turn_bias) * turn_mult);
+                        this.speed = Math.max(this.speed-(speed_inc+0.05), min_speed);
+                    }
+
+                    if (rightPressed) {
+                        this.rad += (Math.PI/180 * (1/this.speed + turn_bias) * turn_mult);
+                        this.speed = Math.max(this.speed-(speed_inc+0.05), min_speed);
+                    }
+
+
+                    if (upPressed && this.canShoot) {
+                        this.shoot();
+                    }
+
+                    //print(this.speed);
+                }
+
+                step() {
+                    this.control()
+                    super.step() 
+                }
+
+                draw() {
+                    const rad = this.rad;
+                    const x = this.x;
+                    const y = this.y;
+                    
+                    ctx.translate(x,y)
+                    ctx.rotate(rad);
+                    ctx.beginPath();
+                    ctx.fillStyle = "red";
+                    ctx.rect(-25,-50,50,100);
+                    ctx.fill();
+                    ctx.stroke();
+                    ctx.rotate(-1*rad);
+                    ctx.translate(-x,-y);
+                }
+
+                shoot() {
+                    this.canShoot= false;
+                    setTimeout(()=>{this.canShoot=true;}, 300)
+                    new Bullet(this.x, this.y, this.rad, this.speed, this.owner)
+
+                }
+            }
+            
+            //alert("bang");
+            var p1 = new Player();
+            //alert("bang");
+            gameObjects.push(p1);
+            
+
+            
+
+            function animate() {
+                ctx.clearRect(0, 0, screen.width, screen.height);
+                gameObjects.forEach((i)=>{
+                    // set both to "p1" for Made in Heaven, change p1.draw to "i.draw" to fix graphics, change "p1.step" to "i.step" to fix multiplied player time
+                    i.draw();
+                    i.step();
+                });
+                
+
+                // MAKE SURE TO FIX BY SEPERATING GAME TICK FROM ANIMATION TICK SO THAT FASTER MONOTORS DONT HAVE FASTER TIME
+                requestAnimationFrame(animate);
+            };
+            animate();
+        </script>
+
+    </body>
+</html>
