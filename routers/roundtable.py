@@ -98,15 +98,15 @@ class Connection(Base):
         except Exception as error:
             print(f"ERROR: Chat Broadcast Faliure. {error}")
 
-    async def terminateSocket():
-        Manager.broadcast(message=f"{self.username}: Terminating Connection")
+    async def terminateSocket(self):
+        await Manager.broadcast(message=f"{self.username}: Terminating Connection", sender="SERVER")
         try:
-            await websocket.close()
+            await self.websocket.close()
         except Exception as error:
             print(f"WEBSOCKET TERMINATE ERROR: {error}")
-        ConnectionManager.connections.remove(self)
+        Manager.connections.remove(self)
         print(ConnectionManager)       
-        del self
+        #del self
 
 class ConnectionManager(Base):
     connections: List[Connection] = []
@@ -116,9 +116,9 @@ class ConnectionManager(Base):
     #    obj = Connection(websocket=socket)
     #    self.connections.append(obj)
     #    return obj
-
-    def terminate(self):
-        pass
+    @staticmethod
+    async def terminate(sender: Connection):
+        await sender.terminateSocket()
         #, connections: List[Connection]):
     
     async def broadcast(self, message:str, sender:str):
@@ -152,7 +152,7 @@ async def websocket_endpoint(
         try:
             data = await connection.websocket.receive_text()
         except WebSocketDisconnect:
-             
+            await Manager.terminate(sender=connection)
             break
         #print("websocket text recived")
         #await websocket.send_text(f"Message text was: {data}")

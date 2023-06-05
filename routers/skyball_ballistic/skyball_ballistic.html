@@ -14,6 +14,7 @@
             }
             body {
                 width: 100%;
+                overflow: hidden;
                 /*background-color: red;*/
             }
             #screen {
@@ -57,6 +58,7 @@
     <body>
         <h1>WebSocket Ball Game</h1>
         <p id="dev_out">placeholder</p>
+        <p id="dev_send"></p>
         <canvas id='screen'></canvas>
         <br>
         <div id="control-wrapper">
@@ -70,36 +72,39 @@
 
 
         <script>
+            const debug_mode = false;
+            const messages = document.getElementById('messages')
             //alert("test1");
             try {
-            var ws = new WebSocket("wss://ballcom.xyz/api/skyball/ws");
+            //var ws = new WebSocket("wss://ballcom.xyz/api/skyball/ws");
+            var ws = new WebSocket(`wss://${window.location.hostname}/api/skyball/ws`);
+            //var ws = new WebSocket("./api/skyball/ws");
             } catch (e) {alert(e)}
             //alert("working");
             ws.onmessage = function(event) {
-                //alert("recived");
-                var messages = document.getElementById('messages')
-                var message = document.createElement('li')
-                var content = document.createTextNode(event.data)
-                message.appendChild(content)
-                messages.appendChild(message)
+                //print(event.data);
+                //packet = {...event.data};
+                //delete packet["sender"];     //, packet["dataType"];
+                if (debug_mode) {console.log(event.data);}
+                p2.updateRecive(event.data); //packet
             };
 
             ws.onerror = function(event) {alert("error")}; 
            
             ws.onclose = function(event) {alert("Connection closed")};
 
-            function sendMessage(event) {
-                event.preventDefault();
+            function sendMessage(data) {
+                //event.preventDefault();
                 //alert(ws.readyState, ws.url);
-                var input = document.getElementById("messageText");
                 //alert("test3");
                 try {
-                    ws.send(input.value);
+                    if (data["dataType"]=="shoot") {alert(data)}
+                    ws.send(data);
                 } catch (error) {
                     alert(error)
                 }
                 //alert(`sent, message: ${input.value}`);
-                input.value = ''
+                //input.value = ''
             }
             
 
@@ -116,8 +121,9 @@
             //ctx.strokeRect(75,75,100,50);
             
             const dev_out = document.getElementById("dev_out");
+            const dev_send = document.getElementById("dev_send");
 
-            print = function(text) {
+            function print(text) {
                 dev_out.innerText = text;
                 //alert("dog")
             }
@@ -193,32 +199,48 @@
             up_button.ontouchend = up_buttonUp;
 
             
-            const min_speed = 3
-            const max_speed = 10
-            const turn_mult = 1
-            const turn_bias = 1
-            const speed_inc = 0.02
-            
+            const min_speed = 3;
+            const max_speed = 20;
+            const turn_mult = 1;
+            const turn_bias = 1;
+            const speed_inc = 0.02;
+            const bulletDespawnTime = 3000;
+            const bulletDefaultSize = 10;
 
-            var gameObjects = []
+            var game_time = 0;
+
+            const valid_socket_dataTypes = {
+                // HEADER : FUNCTION
+                    init: (packet) => {},
+                    "player": (packet) => {
+                        p2.updateSelf(packet)
+                    },
+                    "shoot": (packet) => {
+                        p2.shoot();   // - Fix bullet to make sure it comes from plane, cords are not passed
+                    },
+                    //update: null,
+                    //error: null
+            }
+
+            var gameObjects = [];
 
             var p1;
 
             class GameObject{
                 constructor(x=300,y=300, rad=0, speed = 3, owner=p1){
-                    this.ctx = ctx;
+                    //this.ctx = ctx;
                     this.x = x;
                     this.y = y;
                     // when player turns their speed goes down, speed goes up over time.
                     this.speed = speed;
                     this.rad = rad; // angle of movement
                     this.owner = owner;
-                    gameObjects.push(this)
+                    gameObjects.push(this);
                 }
 
                 step() {
-                    var rad = this.rad
-                    var speed = this.speed
+                    var rad = this.rad;
+                    var speed = this.speed;
 
                     const delta_x = (speed * -Math.sin(rad));
                     const delta_y = (speed * Math.cos(rad));
@@ -226,15 +248,61 @@
                     this.y = (this.y + delta_y) % 600;
 
                     if (this.x < 0) {
-                        this.x = 600+this.x
+                        this.x = 600+this.x;
                     } 
                     if (this.y < 0) {
-                        this.y = 600+this.y
+                        this.y = 600+this.y;
                     } 
+                }
+
+                destroy() {
+                    const i = gameObjects.indexOf(this);
+                    gameObjects.splice(i,1);
+                    //continue;
+                }
+
+                getObjectJSON() {
+                    return JSON.stringify({data: this,
+                            dataType:"player"});
+                }
+
+                updateSend(packet) {
+                    //let newPacket = (({ctx, ...object }) => object)(originalObject);
+                    //sendMessage(newPacket);
+                    sendMessage(packet);
+                }
+
+                updateRecive(packet) {
+                    //this = Object.assign(this, packet['data']);
+                    /*(Object.entries(packet['data'])).forEach((i)=>{
+                    this[i[0]] = this[i[1]];*/
+                              //}
+                    const JSON_packet = JSON.parse(packet);
+                    if (JSON_packet["dataType"] in valid_socket_dataTypes) {
+                        //const new_packet = {...packet}
+                        //delete new_packet["dataType"], new_packet["sender"];
+                        //valid_socket_dataTypes[packet["dataType"]](new_packet);
+                        valid_socket_dataTypes[JSON_packet["dataType"]](JSON_packet);
+                    }
+
+                    else {throw new Error(`Invalid netcode dataType: ${packet["dataType"]}!`);}
+                }
+
+                updateSelf(packet) {
+                    //this = Object.assign(this, packet['data']);
+                    (Object.entries(packet['data'])).forEach((i)=>{
+                    this[i[0]] = i[1];});
                 }
             }
 
             class Bullet extends GameObject {
+                constructor(...args) {
+                    super(...args);
+                    this.createTime = game_time;
+                    this.radius = bulletDefaultSize;
+                    //alert("bang1");
+                }
+                
                 draw() {
                     const rad = this.rad;
                     const x = this.x;
@@ -243,24 +311,42 @@
                     ctx.translate(x,y)
                     //ctx.rotate(rad);
                     ctx.beginPath();
-                    ctx.fillStyle = "yellow";
-                    ctx.arc(0, 0, 10, 0, 2 * Math.PI);
+                    if (this.owner instanceof Player) {
+                        ctx.fillStyle = "yellow";
+                    }
+                    if (this.owner instanceof EnemyPlayer) {
+                        ctx.fillStyle = "green";
+                    }
+                    ctx.arc(0, 0, this.radius, 0, 2 * Math.PI);
                     ctx.fill();
                     ctx.stroke();
                     //ctx.rotate(-1*rad);
                     ctx.translate(-x,-y);
                 }
+
+                step() {
+                    super.step();
+                    const bulletTime = this.createTime + bulletDespawnTime;
+                    const timeDelta = this.createTime - game_time;
+                    this.radius = ((bulletTime - game_time)/bulletDespawnTime) * bulletDefaultSize;
+                    //print(bulletTime - game_time)
+                    if (this.radius < 0) {this.destroy()}
+                }
             }
             
-            class Player extends GameObject{
+            class Plane extends GameObject {
                 constructor(...args) {
                     super(...args);
                     this.canShoot = true;
                     //alert("bang1");
                 }
                 
-                control() {
+                accelerate() {
                     this.speed = Math.min(this.speed + speed_inc, max_speed);
+                }
+
+                control() {
+                    //this.speed = Math.min(this.speed + speed_inc, max_speed);
                     if (leftPressed) {
                         this.rad -= (Math.PI/180 * (1/this.speed + turn_bias) * turn_mult);
                         this.speed = Math.max(this.speed-(speed_inc+0.05), min_speed);
@@ -279,10 +365,10 @@
                     //print(this.speed);
                 }
 
-                step() {
+                /*step() {
                     this.control()
                     super.step() 
-                }
+                }*/
 
                 draw() {
                     const rad = this.rad;
@@ -292,7 +378,12 @@
                     ctx.translate(x,y)
                     ctx.rotate(rad);
                     ctx.beginPath();
-                    ctx.fillStyle = "red";
+                    if (this instanceof Player) {
+                        ctx.fillStyle = "red";
+                    }
+                    else if (this instanceof EnemyPlayer) {
+                        ctx.fillStyle = "purple";
+                    }
                     ctx.rect(-25,-50,50,100);
                     ctx.fill();
                     ctx.stroke();
@@ -302,33 +393,63 @@
 
                 shoot() {
                     this.canShoot= false;
-                    setTimeout(()=>{this.canShoot=true;}, 300)
-                    new Bullet(this.x, this.y, this.rad, this.speed, this.owner)
+                    setTimeout(()=>{this.canShoot=true;}, 300);
+                }
+            }
 
+            class Player extends Plane {
+                step() {
+                    this.accelerate()
+                    this.control()
+                    super.step() 
+                }
+                shoot() {
+                    super.shoot()
+                    const packet = JSON.stringify({data: this,
+                            dataType:"shoot"});
+                    sendMessage(packet);
+                    print(packet);
+                    new Bullet(this.x, this.y, this.rad, this.speed+10, this);
                 }
             }
             
+            class EnemyPlayer extends Plane {
+                step() {
+                    this.accelerate()
+                    super.step()
+                }
+                shoot() {
+                    super.shoot()
+                    new Bullet(this.x, this.y, this.rad, this.speed+10, this);
+                }
+                
+            }
+
             //alert("bang");
-            var p1 = new Player();
+            p1 = new Player();
+            //const p2;
+            p2 = new EnemyPlayer();
             //alert("bang");
-            gameObjects.push(p1);
+            //gameObjects.push(p1);
             
 
-            
+            //console.log(p1.getObjectJSON());
 
-            function animate() {
+            function animate(time) {
                 ctx.clearRect(0, 0, screen.width, screen.height);
+                //print(time);
+                game_time = time;
                 gameObjects.forEach((i)=>{
                     // set both to "p1" for Made in Heaven, change p1.draw to "i.draw" to fix graphics, change "p1.step" to "i.step" to fix multiplied player time
                     i.draw();
                     i.step();
                 });
-                
-
+                p1.updateSend(p1.getObjectJSON());
+                //print(`SPEED: ${p1.speed}`)
                 // MAKE SURE TO FIX BY SEPERATING GAME TICK FROM ANIMATION TICK SO THAT FASTER MONOTORS DONT HAVE FASTER TIME
                 requestAnimationFrame(animate);
             };
-            animate();
+            requestAnimationFrame(animate);
         </script>
 
     </body>
